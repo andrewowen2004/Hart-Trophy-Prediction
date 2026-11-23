@@ -18,6 +18,7 @@ for year in range(1990, 2027):          # 2027 so that 2026 is included
     if not os.path.exists(path):
         url = f"https://www.hockey-reference.com/awards/voting-{year}.html"
         response = requests.get(url)
+        response.encoding = "utf-8" 
         print(year, response.status_code)
         with open(path, "w", encoding="utf-8") as f:
             f.write(response.text)
@@ -44,7 +45,7 @@ for year in range(1990, 2027):          # 2027 so that 2026 is included
 
 # --- Layer 2: one combined CSV ---
 df = pd.DataFrame(all_rows)
-df.to_csv("data/raw/hart_voting.csv", index=False)
+df.to_csv("data/processed/hart_voting.csv", index=False)
 print(df.shape)
 print(df.head())
 
